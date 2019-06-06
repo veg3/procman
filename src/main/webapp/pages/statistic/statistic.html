@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>统计报表</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/css/public.css" />
+    <link rel="stylesheet" href="/static/js/modules/formSelects-v4.css">
+</head>
+<body>
+
+<div align="center">
+    <form class="layui-form" id="fas" style="margin-top: 30px">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>各院系项目申请情况</legend>
+        </fieldset>
+        <div>
+            <div class="layui-form-item" style="width:50%">
+                <label class="layui-form-label">院系</label>
+                <div class="layui-input-block" >
+                    <select id="sfa" name="faculty" xm-select="select1" xm-select="normal" xm-select-skin="normal">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item" style="width:50%">
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" name="executeDate" class="layui-input" id="test8">
+            </div>
+        </div>
+        <div class="layui-form-item"  style="padding-left:8%">
+            <div class="layui-input-block" style="margin-left: -15%">
+                <button class="layui-btn layui-btn-normal" id="btns" lay-submit="" lay-filter="btns">查询</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+        <br><br>
+        <div>
+            <div id="sda" class="cha"></div>
+        </div>
+        <div style="">
+            <div id="tda" class="cha"></div>
+        </div>
+    </form>
+</div>
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/js/statistic/statistic.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.FinalReportMapper">
+
+    <select id="fnrpPage" resultType="edu.mmc.entity.vo.AifVo">
+        <include refid="apply"></include> and ${field} = #{id}
+    </select>
+    <sql id="apply">
+          SELECT it.id id ,it.stat_id statId,it.type type,it.name, pt.name statName,iy.name tpName,it.apply_date applyDate,
+        it.execute_date executeDate,it.faculty,it.major,it.intro,tc.name tuName,stu.name stuName from item it
+        join pty pt on it.stat_id = pt.id join student stu on it.stu_id = stu.id
+        join teacher tc on it.tutor_id = tc.id join ity iy on iy.id = it.type where it.status = 3 and  it.stat_id BETWEEN 1 and 7
+    </sql>
+
+    <select id="getAuditVo" resultType="edu.mmc.entity.vo.AuditVo">
+        select IFNULL(tu_comment,'') tuComm,IFNULL(fa_comment,'') faComm,IFNULL(le_comment,'') leComn from final_report where item_id = #{tid}
+    </select>
+
+    <select id="getFinalVo" resultType="edu.mmc.entity.vo.FinalVo">
+        select it.faculty faculty,concat(it.name ,' (',lv.name,')') name,stu.name stuName,stu.phone phone,GROUP_CONCAT(tc.name) tuName,it.apply_date applyDate,it.type type
+        from item it join student stu on stu.id = it.stu_id join tu_proj tp on tp.item_id = it.id join teacher tc on tc.id = tp.tu_id
+        join level lv on lv.id = it.`level` where it.id = #{tid}
+    </select>
+
+    <select id="getcomm" resultType="edu.mmc.entity.vo.AuditVo">
+        select tu_comment tuComm,fa_comment faComm,le_comment leComm,fa_result faRes,le_result leRes from final_report where item_id = #{tid}
+    </select>
+</mapper>

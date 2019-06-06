@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/static/css/public.css" />
+</head>
+<body class="childrenBody">
+     <form class="layui-form layui-form-pane" method="post">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="10%">
+                    <col width="40%">
+                    <col width="10%">
+                    <col width="40%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td>项目名称</td><td><input type="text" name="name" /></td>
+                    <td>项目类型</td>
+                    <td>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="type" value="0" title="创新训练" />
+                            <input type="radio" name="type" value="1" title="创业训练" />
+                            <input type="radio" name="type" value="2" title="创业实践" />
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>申报时间</td><td><input type="text"  name="applyDate" id="applyDate" /></td>
+                    <td>实施时间</td><td><input type="text"  name="executeDate" id="executeDate" /></td>
+                </tr>
+                <tr>
+                    <td>院系</td>
+                    <td>
+                        <select id="faculty" name="faculty" lay-filter="faculty" required lay-verify="required">
+                        </select>
+                    </td>
+                    <td>专业</td>
+                    <td>
+                        <select id="major" name="major" lay-filter="major" required lay-verify="required">
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>项目简介</td>
+                    <td colspan="3"><textarea name="intro" required lay-verify="required" class="layui-textarea"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="layui-table tst" style="text-align: center">
+                <colgroup>
+                    <col width="5%">
+                    <col width="10%">
+                    <col span="5" width="85">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td rowspan="4" style="vertical-align: middle;">项目成员</td>
+                        <td></td>
+                        <td>学号</td>
+                        <td>姓名</td>
+                        <td>年级</td>
+                        <td>电话</td>
+                        <td>邮箱</td>
+                    </tr>
+                    <tr>
+                        <td>项目负责人</td>
+                        <td><input name="stmb[0].id"  id="leadId" ></td>
+                        <td><input name="stmb[0].name" id="leadName" readonly></td>
+                        <td><input name="stmb[0].grade" readonly></td>
+                        <td><input name="stmb[0].phone" readonly></td>
+                        <td><input name="stmb[0].email" readonly></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" style="vertical-align: middle;">其他成员<br><br><button class="layui-btn layui-btn-xs layui-btn-normal adds">增加</button><button class="layui-btn layui-btn-xs layui-btn-normal subs">减少</button></td>
+                        <td><input name="stmb[1].id" ></td>
+                        <td><input name="stmb[1].name" readonly></td>
+                        <td><input name="stmb[1].grade" readonly></td>
+                        <td><input name="stmb[1].phone" readonly></td>
+                        <td><input name="stmb[1].email" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input name="stmb[2].id" ></td>
+                        <td><input name="stmb[2].name" readonly></td>
+                        <td><input name="stmb[2].grade"  readonly></td>
+                        <td><input name="stmb[2].phone" readonly></td>
+                        <td><input name="stmb[2].email" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="layui-table ttu" style="text-align: center">
+                <colgroup>
+                    <col width="5%">
+                    <col width="10%">
+                    <col span="5" width="85">
+                </colgroup>
+                <tbody >
+                    <tr>
+                        <td rowspan="2" style="vertical-align: middle;">指导教师</td>
+                        <td></td>
+                        <td hidden>教工号</td>
+                        <td>姓名</td>
+                        <td>院系</td>
+                        <td>职称</td>
+                        <td>研究方向</td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: middle;">第一导师<br><br><button class="layui-btn layui-btn-xs layui-btn-normal addt">增加</button><button class="layui-btn layui-btn-xs layui-btn-normal subt">减少</button></td>
+                        <td hidden><input name="tumb[0].id" readonly></td>
+                        <td><input name="tumb[0].name" id="tupNo" placeholder="搜索选择导师"></td>
+                        <td><input name="tumb[0].faculty" readonly></td>
+                        <td><input name="tumb[0].jobTitle" readonly></td>
+                        <td><input name="tumb[0].resDirect" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div align="center" style="margin-top: 10px">
+                <button class="layui-btn" lay-submit lay-filter="btns" id="btns">保存</button>
+            </div>
+     </form>
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/js/apply/stu/addproj.js"></script>
+</body>
+</html>

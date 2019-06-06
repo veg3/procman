@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper  namespace="edu.mmc.mapper.TuProjMapper" >
+    <select id="tusNames" resultType="string">
+        SELECT  GROUP_CONCAT(tc.name) as namelist from tu_proj tp join teacher tc on tp.tu_id = tc.id  where item_id = #{tid}
+    </select>
+
+    <select id="tupj" resultType="edu.mmc.entity.vo.TuProjVo"> <!--获取itemvo -->
+        <include refid="tecInfo" /> from teacher tc join tu_proj tp on tp.tu_id = tc.id where tp.item_id = #{tid}
+    </select>
+
+    <select id="othertuj" resultType="edu.mmc.entity.vo.TuProjVo">
+        <include refid="tecInfo" /> from tu_proj tp join teacher tc on tp.tu_id = tc.id
+        join item it on it.id = tp.item_id where   tp.item_id = #{tid} and it.tutor_id != tp.tu_id
+    </select>
+    <select id="leader" resultType="edu.mmc.entity.vo.TuProjVo">
+        <include refid="tecInfo" /> from item it join teacher tc on it.tutor_id = tc.id where it.id =#{tid}
+    </select>
+    <delete id="del">
+        DELETE  from tu_proj where item_id = #{tid} and tu_id = #{uid}
+    </delete>
+    <insert id="save">
+        insert into tu_proj(item_id,tu_id) values(#{tid},#{uid})
+    </insert>
+    <sql id="tecInfo">
+        SELECT tc.id,tc.name,tc.faculty,tc.job_title jobTitle,tc.res_direct resDirect
+    </sql>
+</mapper>

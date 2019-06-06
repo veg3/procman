@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.StuProjMapper">
+
+    <select id="stup" resultType="edu.mmc.entity.vo.StuProjVo"><!--获取itemvo -->
+        <include refid="stuInfo" /> from stu_proj sp join student st on st.id = sp.stu_id
+        where sp.item_id = #{tid}
+    </select>
+    <select id="otherspj" resultType="edu.mmc.entity.vo.StuProjVo">
+        <include refid="stutb" /> join item it on it.id = sp.item_id where sp.item_id = #{tid} and it.stu_id != sp.stu_id
+    </select>
+    <select id="leader" resultType="edu.mmc.entity.vo.StuProjVo">
+       <include refid="stuInfo" /> from item it join student st on it.stu_id = st.id where it.id = #{tid}
+    </select>
+
+    <delete id="del">
+        DELETE  from stu_proj where item_id =#{tid} and stu_id = #{uid}
+    </delete>
+
+    <insert id="save">
+        INSERT  into stu_proj(stu_id,item_id) VALUES (#{uid},#{tid})
+    </insert>
+
+    <sql id="stutb">
+        <include refid="stuInfo" />from stu_proj sp
+         join student st on sp.stu_id = st.id
+    </sql>
+    <sql id="stuInfo">
+        SELECT st.id,st.name,st.faculty,st.major,st.grade,st.phone,st.email
+    </sql>
+</mapper>

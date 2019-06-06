@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.TeacherMapper">
+    <select id="getTup" resultType="edu.mmc.entity.vo.TeacherVo">
+        SELECT id,name,faculty,job_title jobTitle,res_direct resDirect from teacher
+        <where>
+            <if test="name != null">
+                name LIKE  #{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="atlist" resultType="edu.mmc.entity.vo.TeacherVo">
+        SELECT tc.id,tc.name,tc.faculty,tc.job_title jobTitle,tc.res_direct resDirect,tc.role_id roleid from teacher tc
+        where tc.faculty = #{faculty} and tc.name like '%${name}%'
+    </select>
+
+    <update id="updByoid">
+        update teacher tc <set><if test="tec.id != null">tc.id = #{tec.id},</if><if test="tec.name != null">tc.name = #{tec.name},</if>
+        <if test="tec.faculty != null">tc.faculty = #{tec.faculty},</if><if test="tec.jobTitle != null">tc.job_title = #{tec.jobTitle},</if>
+        <if test="tec.roleid != null">tc.role_id = #{tec.roleid}</if>
+    </set> where tc.id = #{oid}
+    </update>
+</mapper>

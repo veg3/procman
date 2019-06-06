@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.RoleMenuMapper">
+
+    <select id="menuByRoleId" resultType="edu.mmc.entity.vo.RoleMenuVo">
+        SELECT r.role_id,r.menu_id,m.meun_name,m.menu_icon,m.parent_id,m.href,m.is_spread
+        FROM role_menu r LEFT JOIN menu m ON r.menu_id=m.id WHERE r.role_id = #{roleId}
+    </select>
+</mapper>

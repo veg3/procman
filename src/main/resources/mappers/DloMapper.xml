@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.DloMapper">
+    <!--查看附件是否上传-->
+    <select id="attach" resultType="string">
+        select attachment from <include refid="tab" /> where item_id = #{tid}
+    </select>
+    <!--查看正文是否上传-->
+    <select id="docu" resultType="string">
+        select document from <include refid="tab" /> where item_id = #{tid}
+    </select>
+    <!--审核更新comment -->
+    <update id="backunp" parameterType="edu.mmc.entity.vo.AuditVo">
+        update <include refid="tab" />
+        <set>
+          <if test="avo.tuComm != null">tu_comment = #{avo.tuComm},</if>
+          <if test="avo.faComm != null">fa_comment = #{avo.faComm},</if>
+          <if test="avo.leComm != null">le_comment = #{avo.leComm},</if>
+          <if test="avo.faRes != null"> fa_result = #{avo.faRes},</if>
+          <if test="avo.leRes != null">le_result = #{avo.leRes}</if>
+        </set>
+        where item_id = #{tid}
+    </update>
+
+    <sql id="tab">
+        <if test="status == 1">applycation</if>
+        <if test="status == 2">inspection</if>
+        <if test="status == 3">final_report</if>
+    </sql>
+
+    <!--获取申请/中期/结题项目列表-->
+    <select id="aifList" resultType="edu.mmc.entity.vo.AifVo">
+        SELECT it.id id ,it.stat_id statId,it.type type,it.name, pt.name statName,iy.name tpName,it.apply_date applyDate,
+        it.execute_date executeDate,it.faculty,it.major,<if test="status == 1">it.intro,</if> tc.name tuName,stu.name stuName from item it
+        join pty pt on it.stat_id = pt.id join student stu on it.stu_id = stu.id
+        join teacher tc on it.tutor_id = tc.id join ity iy on iy.id = it.type where it.status = #{status} and  it.stat_id BETWEEN 1 and 7
+        <include refid="edu.mmc.mapper.ItemMapper.s5" />
+        <if test="user.roleId == 1">
+            and it.stu_id = #{user.userId}
+        </if>
+        <if test="user.roleId == 2">
+            and it.tutor_id = #{user.userId}
+        </if>
+        <if test="user.roleId == 3">
+            and it.faculty = #{user.faculty}
+        </if>
+        <if test="user.roleId == 4">
+
+        </if>
+    </select>
+</mapper>

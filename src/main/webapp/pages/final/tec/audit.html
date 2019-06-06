@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目审核</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/static/css/public.css" />
+    <link rel="stylesheet" href="/static/css/apply/audit.css" />
+</head>
+<body>
+<input type="hidden" id="tid" />
+<div id="header" align="center">
+    <h1></h1>
+    <br>
+    <div style="font-size: 15px">
+        项目负责人:<span id="stuName"></span> | 指导教师:<span id="tnames"></span> | 申报时间:<span id="applyDate"></span>
+    </div>
+</div>
+<div  align="center" id="document">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend  class="legend">结题报告书</legend>
+    </fieldset>
+    <div class="ftext">
+        <a href="/apply/dndoc/" class="readpdf">点击在线查看文件</a>
+        <a href="/apply/dndoc/" style="margin-left:30px">点击下载文件</a>
+    </div>
+</div>
+<div align="center" id="attachment" hidden>
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend class="legend">结题报告书附件</legend>
+    </fieldset>
+    <div class="ftext">
+        <a href="/apply/dnattach/">点击下载文件</a>
+    </div>
+</div>
+<div id="audform">
+    <form class="layui-form">
+        <table class="layui-table" align="center">
+            <colgroup>
+                <col width="15%">
+                <col width="85%">
+            </colgroup>
+            <tbody>
+                <tr id="tup" hidden>
+                    <td>导师意见</td>
+                    <td><textarea  id="tuComment" name="tuComm" class="layui-textarea" required lay-verify="required" autocomplete="off" ></textarea></td>
+                </tr>
+                <tr class="fac" hidden>
+                    <td>院系验收结果</td>
+                    <td>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="faRes" value="3" title="优秀" >
+                            <input type="radio" name="faRes" value="2" title="良好" >
+                            <input type="radio" name="faRes" value="1" title="合格">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="fac" hidden>
+                    <td>院系意见</td>
+                    <td><textarea  name="faComm" class="layui-textarea" required lay-verify="required" autocomplete="off" ></textarea></td>
+                </tr>
+
+                <tr class="led" hidden>
+                    <td>专家验收结果</td>
+                    <td>
+                        <div class="layui-input-inline" id="leLev">
+                            <input type="radio" name="leRes" value="3" title="优秀" />
+                            <input type="radio" name="leRes" value="2" title="良好" />
+                            <input type="radio" name="leRes" value="1" title="合格" />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="led" hidden>
+                    <td>验收专家意⻅</td>
+                    <td><textarea  id="leComm" name="leComm" class="layui-textarea" required lay-verify="required" autocomplete="off" ></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px" align="center">
+            <button class="layui-btn" lay-submit lay-filter="back_btn" id="back_btn">退回</button>
+            <button style="margin-left: 80px" class="layui-btn" lay-submit lay-filter="pass_btn" id="sub_btn">通过</button>
+            <button style="margin-left: 80px" class="layui-btn" lay-submit lay-filter="unp_btn" id="unp_btn" hidden>不通过</button>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+<script type="text/javascript" src="/static/js/final/tec/audit.js"></script>
+</body>
+</html>

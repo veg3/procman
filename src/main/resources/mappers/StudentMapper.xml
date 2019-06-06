@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.StudentMapper">
+    <!--
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+    -->
+    <select id="aslist" resultType="edu.mmc.entity.Student">
+        select id,faculty ,major ,name ,grade,id_card from student where 1=1
+        <if test="faculty !=null">and faculty = #{faculty}</if>
+        <if test="major !=null">and major = #{major}</if>
+        and name like '%${name}%'
+    </select>
+
+    <update id="updByoid">
+        update student <set><if test="stu.id != null">id = #{stu.id},</if><if test="stu.name != null">name = #{stu.name},</if>
+        <if test="stu.faculty != null">faculty = #{stu.faculty},</if><if test="stu.major != null">major = #{stu.major},</if>
+        <if test="stu.grade != null">grade = #{stu.grade},</if><if test="stu.idCard != null">id_card = #{stu.idCard}</if>
+        </set> where id = #{oid}
+    </update>
+
+    <select id="fname" resultType="string">
+        SELECT name from student where id =#{id}
+    </select>
+</mapper>

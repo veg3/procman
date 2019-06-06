@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/public.css">
+</head>
+<body>
+    <div class="layui-container" style="margin-top:40px;margin-left: 40px;">
+        <form class="layui-form  layui-form-pane" action="">
+            <div class="layui-fluid">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label" id="labId"></label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="userId" id="userId" required lay-verify="required" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">名称</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="userName" id="userName" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">角色</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="roleName" id="roleName" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">院系</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="faculty" id="faculty" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/js/user/usermessage.js"></script>
+</body>
+</html>

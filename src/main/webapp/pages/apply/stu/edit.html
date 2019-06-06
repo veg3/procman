@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/static/css/public.css" />
+</head>
+<body class="childrenBody">
+    <span id="statId" hidden></span>
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>项目主要信息</legend>
+    </fieldset>
+    <form class="layui-form layui-form-pane" method="post">
+        <table class="layui-table">
+            <input type="hidden" id="tid" name="id"/>
+            <colgroup>
+                <col width="10%">
+                <col width="40%">
+                <col width="10%">
+                <col width="40%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>项目名称</td>
+                <td><input type="text" id="name" autocomplete="off" name="name" class="layui-input"/></td>
+                <td>项目类型</td>
+                <td>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="type" value="0" title="创新训练">
+                        <input type="radio" name="type" value="1" title="创业训练">
+                        <input type="radio" name="type" value="2" title="创业实践">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>申报时间</td>
+                <td><input type="text" id="applyDate" autocomplete='off' name="applyDate" class="layui-input"/></td>
+                <td>实施时间</td>
+                <td><input type="text" id="executeDate" name="executeDate" class="layui-input"/></td>
+            </tr>
+            <tr>
+                <td>院系</td>
+                <td>
+                    <select id="faculty" name="faculty" lay-filter="faculty"  required>
+
+                    </select>
+                </td>
+                <td>专业</td>
+                <td>
+                    <select id="major" name="major" lay-filter="major">
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>项目简介</td>
+                <td colspan="3"><textarea id="intro" name="intro" class="layui-textarea" autocomplete="off"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div align="center" style="margin-top: 10px">
+            <button class="layui-btn  layui-btn-normal" lay-submit lay-filter="btnude" id="btnude">更新</button>
+        </div>
+    </form>
+    <div id="member">
+        <div style="margin-top:25px">
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>项目负责人</legend>
+            </fieldset>
+            <table id="leader" lay-filter="leader"></table>
+            <script type="text/html" id="leadTool">
+                <a class="layui-btn  layui-btn-normal layui-btn-xs" lay-event="lead_btn">更新</a>
+            </script>
+        </div>
+        <div>
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>其他成员</legend>
+            </fieldset>
+            <table id="ostu" lay-filter="ostu"></table>
+            <script type="text/html" id="ostuTool">
+                <!--<a class="layui-btn  layui-btn-normal layui-btn-xs" lay-event="ostu_edit">更新</a>-->
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="ostu_del">删除</a>
+            </script>
+        </div>
+        <div style="margin-top:30px">
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>第一指导老师</legend>
+            </fieldset>
+            <table id="ftor" lay-filter="ftor"></table>
+            <script type="text/html" id="ftorTool">
+                <a class="layui-btn  layui-btn-normal layui-btn-xs" lay-event="ftor_btn">更新</a>
+            </script>
+        </div>
+
+        <div style="margin-top:25px;display:none" id="stdiv" hidden>
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>第二指导老师</legend>
+            </fieldset>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/js/apply/stu/edit.js"></script>
+    <script type="text/html" id="storTool">
+        <!--<a class="layui-btn  layui-btn-normal layui-btn-xs" lay-event="stor_btn">更新</a>-->
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="ostu_del">删除</a>
+    </script>
+</body>
+</html>

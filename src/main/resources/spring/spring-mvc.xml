@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <!--Controller注解扫描-->
+    <context:component-scan base-package="edu.mmc.controller" />
+    <!--注册自定义拦截器-->
+    <!--
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/user/login" />
+            <mvc:exclude-mapping path="/user/retpwd" />
+            <mvc:exclude-mapping path="/pages/login.html" />
+            <mvc:exclude-mapping path="/pages/user/fotPwd.html" />
+            <mvc:exclude-mapping path="/static/**" />
+            <bean id="loginInterceptor" class="edu.mmc.intercerptor.LoginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+    -->
+
+
+    <!--静态资源处理-->
+    <mvc:resources mapping="/static/**" location="/static/" />
+    <mvc:resources mapping="/pages/**" location="/pages/" />
+    <mvc:annotation-driven >
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="maxUploadSize" value="#{30*1024*1024}"></property>
+    </bean>
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="/pages/404.jsp"></property>
+    </bean>
+</beans>

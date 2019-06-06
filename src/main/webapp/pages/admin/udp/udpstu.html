@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/public.css">
+</head>
+<body>
+<div style="margin-top:3%;text-align: center;width: 60%;margin-left: 20%">
+    <form class="layui-form layui-form-pane" method="post" id="pwdform">
+        <input name="oldid" id="oldid" hidden>
+        <table class="layui-table">
+            <colgroup>
+                <col width="15%">
+                <col width="60%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>学号</td>
+                <td><input class="layui-input"  name="id" id="id" lay-verify="numb" autocomplete="off" /></td>
+            </tr>
+            <tr>
+                <td>姓名</td>
+                <td><input class="layui-input" name="name" id="name" autocomplete="off"/></td>
+            </tr>
+            <tr>
+                <td>院系</td>
+                <td>
+                    <select id="faculty" name="faculty" lay-filter="faculty" lay-verify="required">
+                        <option value="" selected></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>专业</td>
+                <td>
+                    <select id="major" name="major"  lay-verify="required">
+                        <option value="" selected></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>年级</td>
+                <td><input class="layui-input" name="grade" id="grade" lay-verify="numb" autocomplete="off"/></td>
+            </tr>
+            <tr>
+                <td>身份证</td>
+                <td><input class="layui-input" name="idCard" id="idCard" autocomplete="off"/></td>
+            </tr>
+            </tbody>
+        </table>
+        <div align="center" style="margin-top: 1%">
+            <button class="layui-btn" lay-submit lay-filter="udp_btn">更新</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+<script type="text/javascript" src="/static/js/admin/udp/udpstu.js"></script>
+</body>
+</html>

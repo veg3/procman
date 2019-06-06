@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.ItemMapper">
+
+    <insert id="insVo" parameterType="edu.mmc.entity.vo.ItemVo" useGeneratedKeys="true" keyProperty="vo.id">
+        INSERT INTO item (name, type, apply_date, execute_date, faculty, major, intro, stu_id, tutor_id ) VALUES
+        (#{vo.name},#{vo.type},#{vo.applyDate},#{vo.executeDate},#{vo.faculty},#{vo.major},#{vo.intro},#{vo.stmb[0].id},#{vo.tumb[0].id})
+    </insert>
+
+    <update id="updvo" parameterType="edu.mmc.entity.vo.ItemVo">
+        update item <set>
+        <if test="vo.name !=null">name = #{vo.name},</if>
+        <if test="vo.type != null">type = #{vo.type},</if>
+        <if test="vo.applyDate != null">apply_date = #{vo.applyDate},</if>
+        <if test="vo.executeDate != null">execute_date=#{vo.executeDate},</if>
+        <if test="vo.faculty != null">faculty=#{vo.faculty},</if>
+        <if test="vo.major != null">major= #{vo.major},</if>
+        <if test="vo.intro != null">intro= #{vo.intro},</if>
+        <if test="vo.stmb != null">stu_id = #{vo.stmb[0].id},</if>
+        <if test="vo.tumb != null">tutor_id = #{vo.tumb[0].id}</if>
+        </set> where id = #{vo.id}
+    </update>
+
+    <!-- type series数据-->
+    <select id="gettda"  resultType="edu.mmc.entity.vo.TotalVo">
+        SELECT  IFNULL(temp.cou,0) as num,facl.name faculty  FROM faculty facl
+        LEFT JOIN (
+          SELECT count(it.id) as cou,it.faculty ifa from item it where it.type = #{type}
+          <if test="qvo.executeDate != null and qvo.executeDate != ''">
+              and it.apply_date BETWEEN #{qvo.sufDate} and #{qvo.posDate}
+          </if>
+          group by it.faculty
+        ) as temp on temp.ifa = facl.name where facl.name  in
+        <foreach collection="fastr" index="index" item="item" open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </select>
+
+    <!-- it.stat_id series数据-->
+   <select id="getsda"  resultType="edu.mmc.entity.vo.TotalVo">
+       SELECT  IFNULL(temp.cou,0) as num,facl.name faculty  FROM faculty facl
+       LEFT JOIN (
+       SELECT count(it.id) as cou,it.faculty ifa from item it where <choose>
+       <when test="sid == 0">it.stat_id = -1</when>
+       <when test="sid == 1">it.stat_id BETWEEN 0 and 7</when>
+       <otherwise>it.stat_id = 8</otherwise></choose>
+       <if test="qvo.executeDate != null and qvo.executeDate != ''">
+           and it.apply_date BETWEEN #{qvo.sufDate} and #{qvo.posDate}
+       </if>
+       group by it.faculty
+       ) as temp on temp.ifa = facl.name where facl.name  in
+       <foreach collection="fastr" index="index" item="item" open="(" separator="," close=")">
+           #{item}
+       </foreach>
+   </select>
+
+   <!-- 项目doc atta文件路径-->
+    <select id="aifNs" resultType="edu.mmc.entity.vo.FnsVo">
+        SELECT ap.document doc1,ap.attachment atta1,ip.document doc2,ip.attachment atta2,fr.document doc3,fr.attachment att3 from applycation ap
+        left join inspection ip on ap.item_id = ip.item_id
+        left join final_report fr on fr.item_id = ap.item_id
+        where ap.item_id = #{id}
+    </select>
+
+    <update id="updStat">
+        UPDATE item SET stat_id = #{val} WHERE id = #{id}
+    </update>
+
+    <!--获取项目列表-->
+    <select id="itemsPage" resultType="edu.mmc.entity.vo.AlistVo">
+        SELECT  it.id id ,it.stat_id statId,it.status status,it.name name, concat(sy.name,"-",pt.name) statName,iy.name tpName,
+        it.faculty,it.major,GROUP_CONCAT(tc.name) tuName,stu.name stuName,it.apply_date applyDate from item it
+        join pty pt on it.stat_id = pt.id join student stu on it.stu_id = stu.id
+        join ity iy on iy.id = it.type join sty sy on sy.id = it.status
+        join tu_proj tup on tup.item_id = it.id  join teacher tc on tup.tu_id = tc.id
+        <if test= "rid == 1"> <include refid="s1" /></if>
+        <if test= "rid == 2"> <include refid="s2" /></if>
+        <if test= "rid == 3"> <include refid="s3" /></if>
+        <if test= "rid == 4"> <include refid="s4" /></if>
+        group by it.id
+    </select>
+    <select id="getitemVo" resultMap="itemvo" >
+        select * from item where id = #{id}
+    </select>
+    <sql id="s1">
+         join stu_proj stp on it.id = stp.item_id
+         where stp.stu_id = #{fval}
+    </sql>
+    <sql id="s2">
+        where it.id in (SELECT np.item_id from tu_proj np where np.tu_id = #{fval})
+        <include refid="s5" />
+    </sql>
+    <sql id="s3">
+         where it.faculty = #{fval} <include refid="s5" />
+    </sql>
+    <sql id="s4">
+        where 1 = 1 <include refid="s5" />
+    </sql>
+    <!--模糊查询项目列表-->
+    <sql id="s5">
+        <if test="qvo != null ">
+            <if test="qvo.name != null and qvo.name != ''">
+                and it.name LIKE '%${qvo.name}%'
+            </if>
+            <if test="qvo.faculty != null and qvo.faculty != ''">
+                and it.faculty LIKE '%${qvo.faculty}%'
+            </if>
+            <if test="qvo.executeDate != null and qvo.executeDate != ''">
+                and it.apply_date BETWEEN #{qvo.sufDate} and #{qvo.posDate}
+            </if>
+        </if>
+    </sql>
+
+    <resultMap id="itemvo" type="edu.mmc.entity.vo.ItemVo">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="type" column="type" />
+        <result property="applyDate" column="apply_date" />
+        <result property="executeDate" column="execute_date" />
+        <result property="level" column="level" />
+        <result property="faculty" column="faculty" />
+        <result property="major" column="major" />
+        <association property="stuName" column="stu_id" select="edu.mmc.mapper.StudentMapper.fname" fetchType="eager">
+
+        </association>
+        <collection property="stmb" ofType="edu.mmc.entity.vo.StuProjVo" select="edu.mmc.mapper.StuProjMapper.stup" column="{tid=id}" fetchType="eager"/>
+        <collection property="tumb" ofType="edu.mmc.entity.vo.TuProjVo" select="edu.mmc.mapper.TuProjMapper.tupj" column="{tid=id}" fetchType="eager"/>
+    </resultMap>
+</mapper>

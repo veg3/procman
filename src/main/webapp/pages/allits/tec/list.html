@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目列表</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/css/public.css" />
+</head>
+<body>
+<blockquote class="layui-elem-quote">
+    <form action="" class="layui-form" id="fsc">
+        <div class="layui-input-inline">
+            <input  placeholder="项目名称" autocomplete="off"  name="name" class="layui-input" />
+        </div>
+        <div class="layui-input-inline">
+            <input  placeholder="院系" autocomplete="off" name="faculty" class="layui-input" />
+        </div>
+        <div class="layui-input-inline">
+            <input style="width: 120%" id="apdate" placeholder="申报时间" autocomplete="off" name="executeDate" class="layui-input"/>
+        </div>
+        <div class="layui-input-inline" style="margin-left: 5%">
+            <a class="layui-btn" lay-submit lay-filter="query">查询</a>
+        </div>
+    </form>
+</blockquote>
+
+
+<div id="div3">
+    <table id="allList" lay-filter="allList"></table>
+    <script type="text/html" id="alTool">
+        <a class="layui-btn layui-bg-blue layui-btn-xs" lay-event="read_btn">查看</a>
+    </script>
+
+</div>
+
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/js/allits/my/list.js"></script>
+</body>
+</html>

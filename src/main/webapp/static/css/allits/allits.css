@@ -1,0 +1,25 @@
+.spana{
+    margin-left: 8%;
+}
+.spana a:nth-child(2){
+    margin-left: 8%;
+}
+.ftext a{
+    font-size: 17px;
+    text-decoration:underline;
+    color: #0000FF;
+
+}
+
+.legend{
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+.ftext{
+    margin-left: 20%;
+    font-size: 17px;
+}
+#detail{
+    font-size: 16px;
+}

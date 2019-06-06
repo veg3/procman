@@ -1,0 +1,30 @@
+.header{
+    margin-top: 20px;
+}
+.header h1{
+    font-size: 24px;
+}
+#author{
+    font-size: 16px
+}
+.ftext a{
+    font-size: 16px;
+    text-decoration:underline;
+    color: #0000FF
+}
+#attachment{
+    margin-top:25px
+}
+#document{
+    margin-top:25px
+}
+#audform{
+    margin-top:35px
+}
+.legend{
+    font-weight: 600;
+    font-size: 18px
+}
+.layui-textarea{
+    text-align: justify
+}

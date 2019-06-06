@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/css/public.css" />
+</head>
+<body>
+<input type="hidden" id="page" value="1" />
+<div style="text-align: center;width: 50%;margin-left: 25%;margin-top: 2%">
+    <form class="layui-form" id="fas">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>教师信息情况</legend>
+        </fieldset>
+        <table class="layui-table" align="center">
+            <tr>
+                <td>院系</td>
+                <td>
+                    <select id="faculty" name="faculty" lay-filter="faculty" lay-verify="required">
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>姓名</td>
+                <td>
+                    <input class="layui-input" name="name" autocomplete="off"/>
+                </td>
+            </tr>
+        </table>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="btns">查询</button>
+                <button type="reset" class="layui-btn layui-btn-primary" style="margin-left: 8%">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div style="margin-top: 4%;width: 80%;margin-left: 10%" hidden>
+    <table id="slist" lay-filter="slist" align="center"></table>
+</div>
+<script type="text/html" id="stool">
+    <a class="layui-btn  layui-btn-xs" lay-event="udp_btn">更新</a>
+    <a class="layui-btn  layui-btn-xs layui-btn-warm" lay-event="del_btn">删除</a>
+</script>
+<script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+<script type="text/javascript" src="/static/js/admin/adtec.js"></script>
+</body>
+</html>

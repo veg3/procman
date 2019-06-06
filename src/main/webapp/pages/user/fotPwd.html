@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/public.css">
+</head>
+<body>
+<div style="margin-top:10%;text-align: center">
+    <form class="layui-form layui-form-pane" method="post" id="pwdform">
+        <table class="layui-table">
+            <colgroup>
+                <col width="20%">
+                <col width="80%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>账号</td>
+                    <td><input class="layui-input"  name="id" placeholder="学号/教工号" required lay-verify="required|numb" autocomplete="off"/></td>
+                </tr>
+                <tr>
+                    <td>凭据</td>
+                    <td><input class="layui-input" name="idcard" placeholder="身份证" required lay-verify="required" autocomplete="off"/></td>
+                </tr>
+                <tr>
+                    <td>滑动验证</td>
+                    <td><div id="slider"></div></td>
+                </tr>
+            </tbody>
+        </table>
+        <div align="center" style="margin-top: 5%">
+            <button class="layui-btn" lay-submit lay-filter="ftPwd">确认找回</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+<script type="text/javascript" src="/static/js/user/ftPwd.js"></script>
+</body>
+</html>

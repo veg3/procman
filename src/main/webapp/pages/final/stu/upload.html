@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/css/public.css" />
+</head>
+<body>
+    <input type="hidden" id="tid"/>
+    <div align="center" style="margin-top: 20px;">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>结题报告书正文(请上传2MB以内pdf格式正文)</legend>
+        </fieldset>
+        <button type="button" class="layui-btn layui-btn-primary" id="test3"><i class="layui-icon"></i>只允许PDF文件</button>
+        <div style="margin-top:10px;text-align: center">
+            <span id="fileinfo"></span>
+            &nbsp;
+            <span id="demoText"></span>
+        </div>
+    </div>
+
+    <div align="center" style="margin-top: 40px;">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>结题报告书附件（20MB以内压缩包文件，没有不需上传)</legend>
+        </fieldset>
+        <button type="button" class="layui-btn layui-btn-primary" id="test4"><i class="layui-icon"></i>只允许压缩文件</button>
+        <div style="margin-top: 10px">
+            <span id="fileinfo2"></span>
+            &nbsp;
+            <span id="demoText2"></span>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/js/final/stu/upload.js"></script>
+</body>
+</html>

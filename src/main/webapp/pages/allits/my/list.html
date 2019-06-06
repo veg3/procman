@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目列表</title>
+    <link rel="stylesheet" href="/static/commons/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/css/public.css" />
+</head>
+<body>
+
+
+<div id="div3">
+    <table id="allList" lay-filter="allList"></table>
+    <script type="text/html" id="alTool">
+        <a class="layui-btn layui-bg-blue layui-btn-xs" lay-event="read_btn">查看</a>
+        {{#  if( d.statId <= 2 ){ }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_btn">删除</a>
+        {{#  } }}
+
+    </script>
+</div>
+
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/js/allits/my/list.js"></script>
+</body>
+</html>

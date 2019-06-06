@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.mmc.mapper.MajorMapper">
+    <select id="mjNames" resultType="string">
+        select m.name from major m join faculty f on f.id = m.fid where f.name = #{faN}
+    </select>
+</mapper>

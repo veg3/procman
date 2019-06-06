@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/login/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/login/component.css" />
+    <link rel="stylesheet" type="text/css" href="/static/commons/layui/css/layui.css" />
+    <script type="text/javascript" src="/static/commons/layui/layui.js"></script>
+</head>
+<body>
+<div class="container demo-1">
+    <div class="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="logo_box">
+                <h3>欢迎你</h3>
+                <form class="layui-form">
+                    <div class="input_outer" style="margin-top: 4%">
+                        <span class="u_user"></span>
+                        <input name="id" class="text" required lay-verify="required|numb"  placeholder="请输入账户" autocomplete="off">
+                    </div>
+                    <div class="input_outer">
+                        <span class="us_uer"></span>
+                        <input name="pwd" class="text" type="password" required lay-verify="required" placeholder="请输入密码">
+                    </div>
+                    <div class="mb2"><a id ="sub" lay-submit lay-filter="sub" class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
+                </form>
+                <div style="margin-top: 5%;margin-left: 75% " >
+                    <a href="javascript;" style="color: #1E9FFF;" id="fot">忘记密码</a>
+                </div>
+                <div style="margin-top:50%" align="center" class="layui-footer footer">
+                    <p><span>copyright @2019 </span>大学生项目管理系统</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /container -->
+
+<script src="/static/js/login/TweenLite.min.js"></script>
+<script src="/static/js/login/EasePack.min.js"></script>
+<script src="/static/js/login/rAF.js"></script>
+<script src="/static/js/login/demo-1.js"></script>
+<script src="/static/js/login/login.js"></script>
+</body>
+
+</html>
