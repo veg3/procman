@@ -1,4 +1,4 @@
-package edu.mmc.realms;
+package edu.mmc.shiro.realms;
 
 import edu.mmc.entity.vo.SystemUserVo;
 import edu.mmc.service.ISystemUserService;
@@ -13,7 +13,6 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.Set;
 
 public class ShiroRealm extends AuthorizingRealm{
@@ -21,7 +20,7 @@ public class ShiroRealm extends AuthorizingRealm{
     ISystemUserService sus;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {  //授权
-        System.out.println("hello zating");
+        System.out.println("doGetAuthorizationInfo......");
         Set<String> roles = new HashSet<>();
         SystemUserVo user = (SystemUserVo)SecurityUtils.getSubject().getSession().getAttribute("user");
         if(user != null ){
@@ -54,12 +53,6 @@ public class ShiroRealm extends AuthorizingRealm{
         System.out.println(result);
 
 
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("/pages/user/fotPwd.html", "anon");
-        map.put("/pages/login.html", "anon");
-        map.put("/user/login", "anon");
-        map.put("/pages/statistic/statistic.html", "authc,roles[3]");
-        map.put("/pages/statistic/statistic.html", "authc,roles[4]");
-        System.out.println("map: "+map);
+
     }
 }

@@ -24,7 +24,7 @@
         </property>
     </bean>
 
-    <bean id="shiroRealm" class="edu.mmc.realms.ShiroRealm">
+    <bean id="shiroRealm" class="edu.mmc.shiro.realms.ShiroRealm">
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                 <property name="hashAlgorithmName" value="MD5"></property>
@@ -41,27 +41,18 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
-
-    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <bean id="roleOrFilter" class="edu.mmc.shiro.filter.RolesAuthorizationFilter" />
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" depends-on="roleOrFilter">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/pages/login.html"/>
         <property name="successUrl" value="/pages/index.html"/>
         <property name="unauthorizedUrl" value="/pages/404.html"/>
         <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
-        <!--
-        <property name="filterChainDefinitions" >
-            <value>
-                /login.jsp = anon
-                /shiro/login = anon
-                /shiro/logout = logout
-
-                /user.jsp = roles[user]
-                /admin.jsp = roles[admin]
-
-                /** = authc
-            </value>
+        <property name="filters">
+            <map>
+                <entry key="roles" value-ref="roleOrFilter"></entry>
+            </map>
         </property>
-        -->
     </bean>
 
 

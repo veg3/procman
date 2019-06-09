@@ -7,6 +7,7 @@ import edu.mmc.entity.vo.SystemUserVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -19,7 +20,7 @@ import java.io.Serializable;
 public interface SystemUserMapper extends BaseMapper<SystemUser> {
     SystemUserVo getUserVoByUid(@Param("uid") String uid);
 
-    Integer existUser(@Param("uid")String uid,@Param("pwd")String pwd);
+    Integer existUser(@Param("uid")String uid, @Param("pwd")String pwd);
 
     SystemUser getUser(@Param("uid")String uid);
 

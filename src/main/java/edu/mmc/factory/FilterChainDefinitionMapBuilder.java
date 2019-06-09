@@ -1,20 +1,30 @@
 package edu.mmc.factory;
+import edu.mmc.entity.Authority;
+import edu.mmc.service.IAuthorityService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class FilterChainDefinitionMapBuilder {
-
+	@Autowired
+	private IAuthorityService aus;
 	public LinkedHashMap<String, String> buildFilterChainDefinitionMap(){
+		System.out.println("--eee--");
 		LinkedHashMap<String, String> map = new LinkedHashMap<>();
-		map.put("/pages/user/fotPwd.html", "anon");
-		map.put("/pages/login.html", "anon");
-		map.put("/user/login", "anon");
-		map.put("/pages/statistic/statistic.html", "authc,roles[3]");
-		map.put("/pages/statistic/statistic.html", "authc,roles[4]");
-		map.put("/pages/index.html", "authc");
-		map.put("/pages/welcome.html", "authc");
-		map.put("/static/**", "anon");
-		map.put("/**", "anon");
+		List<Authority> list = aus.list();
+		for(Authority au : list){
+			String str = null;
+			if(au.getRole() != null){
+				str = au.getInc()+",roles[\""+au.getRole()+"\"]";
+			}
+			else {
+				str = au.getInc();
+			}
+			map.put(au.getUrl(),str);
+		}
 		return map;
 	}
-	
+
+
 }

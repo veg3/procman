@@ -39,8 +39,7 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 	
 	//清除缓存
 	$(".clearCache").click(function(){
-		window.sessionStorage.clear();
-        window.localStorage.clear();
+		cleanCache();
         var index = layer.msg('清除缓存中，请稍候',{icon: 16,time:false,shade:0.8});
         setTimeout(function(){
             layer.close(index);
@@ -84,9 +83,9 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
         tab.tabMove();
     }
     $(".logout").click(function () {
+        cleanCache();
         $.post('/user/logout',function (info) {
             layer.msg(info.msg);
-            window.sessionStorage.clear();
             setTimeout(function () {
                 window.location.reload();
         },800);
@@ -103,18 +102,14 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
         }
     });
 
-    // var interval= setInterval(function () {
-    //     $.post('/user/login-info',function (info) {
-    //         if(info.code==1||info.code == undefined){
-    //             clearInterval(interval);
-    //             window.location.reload();
-    //         }
-    //     });
-    // },5000);
 
 })
 
 //打开新窗口
 function addTab(_this){
 	tab.tabAdd(_this);
+}
+function cleanCache() {
+    window.sessionStorage.clear();
+    window.localStorage.clear();
 }

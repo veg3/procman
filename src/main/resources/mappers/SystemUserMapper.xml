@@ -5,7 +5,7 @@
         <choose><when test="uid.length == 11">student</when><otherwise>teacher</otherwise></choose>
     </sql>
 
-    <select id="existUser" resultType="integer">
+    <select id="existUser" resultType="java.lang.Integer">
         select count(1) from  <include refid="role" />
         t where t.id = #{uid} and  t.password = #{pwd}
     </select>

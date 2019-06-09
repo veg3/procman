@@ -8,9 +8,13 @@ import edu.mmc.entity.vo.RoleMenuVo;
 import edu.mmc.entity.vo.SystemUserVo;
 import edu.mmc.entity.vo.TableDataVo;
 import edu.mmc.service.ISystemUserService;
+import edu.mmc.shiro.realms.ShiroRealm;
 import edu.mmc.util.UserUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.mgt.RealmSecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.Security;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -59,7 +64,7 @@ public class SystemUserController {
     }
 
     @RequestMapping("/logout")
-    public TableDataVo logout(){
+    public TableDataVo logout(HttpSession session){
         SecurityUtils.getSubject().logout();
         return TableDataVo.okMsg("退出成功!!");
     }
