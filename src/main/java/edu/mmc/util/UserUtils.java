@@ -1,10 +1,14 @@
 package edu.mmc.util;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xml.internal.utils.Hashtree2Node;
 import edu.mmc.entity.vo.AuditVo;
 import edu.mmc.entity.vo.QueryVo;
 import edu.mmc.entity.vo.SystemUserVo;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -37,4 +41,5 @@ public class UserUtils {
             }
         }
     }
+
 }

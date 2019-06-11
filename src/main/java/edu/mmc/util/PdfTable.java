@@ -9,6 +9,8 @@ import com.lowagie.text.Element;
 import edu.mmc.entity.vo.ItemVo;
 import edu.mmc.entity.vo.StuProjVo;
 import edu.mmc.entity.vo.TuProjVo;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,7 +18,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
-
 public class PdfTable {
     private static BaseFont baseFont;
     private static Font font;
@@ -172,4 +173,5 @@ public class PdfTable {
             e.printStackTrace();
         }
     }
+
 }

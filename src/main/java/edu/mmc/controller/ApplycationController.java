@@ -1,4 +1,5 @@
 package edu.mmc.controller;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sun.deploy.net.HttpResponse;
@@ -45,20 +46,22 @@ public class ApplycationController {
     private IApplycationService aps;
     @Autowired
     private PdfTable pt;
-
+    @Autowired
+    private JSONObject jso;
 
     @RequestMapping("/list")    //获取项目列表
     public TableDataVo list(Page page,HttpSession session,QueryVo qvo){
-        System.out.println("apply list...");
         UserUtils.handleDate(qvo);
         SystemUserVo user = (SystemUserVo) session.getAttribute("user");
-        List<AifVo> list = dls.aifList(page,1,user,qvo);
+        Integer table = jso.getJSONObject("table").getInteger("apply");
+        List<AifVo> list = dls.aifList(page,table,user,qvo);
         return TableDataVo.okData(page.getTotal(),list);
     }
     @RequestMapping("/stustat/{tid}")          //学生提交
     public TableDataVo stustat(@PathVariable ("tid") Integer tid,HttpSession session){
         Integer rid = UserUtils.getRid(session);
-        String doc = dls.existdoc(tid, 1);
+        Integer table = jso.getJSONObject("table").getInteger("apply");
+        String doc = dls.existdoc(tid,table);
         if(doc == null || doc.trim().equals("")){
             return TableDataVo.failMsg("申请书未上传,提交失败");
         }
@@ -70,8 +73,7 @@ public class ApplycationController {
 
     @RequestMapping("/tubstat/{tid}")      //教师审核通过
     public TableDataVo substat(@RequestBody AuditVo avo,@PathVariable ("tid") Integer tid,HttpSession session){
-        System.out.println("substat... "+tid);
-        System.out.println("avo: "+avo);
+        JSONObject table = jso.getJSONObject("table");
         try{
             Integer rid = UserUtils.getRid(session);
             Item item = new Item();
@@ -80,13 +82,13 @@ public class ApplycationController {
                 item.setStatId(StatusUtil.getSub().get(rid));
             }
             else if(rid == 3){
-                item.setStatId(1);
+                item.setStatId(jso.getJSONObject("stat").getInteger("initStat"));
                 item.setLevel(avo.getFaLev());
-                item.setStatus(2);                  //申请通过状态
+                item.setStatus(table.getInteger("insp"));                  //申请通过状态
                 createInspection(tid);             //创建对应的中期报告书
             }
             its.updateById(item);
-            dls.backunp(1,avo,tid);
+            dls.backunp(table.getInteger("apply"),avo,tid);
             return TableDataVo.okMsg("提交成功");
         }catch (Exception e){
             e.printStackTrace();
@@ -96,12 +98,14 @@ public class ApplycationController {
 
     @RequestMapping("/backstat/{tid}")      //返回修改
     public TableDataVo backstat(@RequestBody  AuditVo avo,@PathVariable ("tid") Integer tid,HttpSession session){
-        return backunp(1,avo,tid,StatusUtil.getBack().get(UserUtils.getRid(session)));
+        Integer table = jso.getJSONObject("table").getInteger("apply");
+        return backunp(table,avo,tid,StatusUtil.getBack().get(UserUtils.getRid(session)));
     }
 
     @RequestMapping("/unp/{tid}")      //不通过
     public TableDataVo unp(@RequestBody  AuditVo avo,@PathVariable ("tid") Integer tid,HttpSession session){
-        return backunp(1,avo,tid,-1);
+        Integer table = jso.getJSONObject("table").getInteger("apply");
+        return backunp(table,avo,tid,jso.getJSONObject("stat").getInteger("failStat"));
     }
 
     @PostMapping("/updoc/{tid}")    //上传文件
@@ -114,7 +118,7 @@ public class ApplycationController {
                 String doc = ac.getDocument();
                 FileUtils.delfile(doc);
                 String loginid = UserUtils.getUid(session).toString();
-                String path="D:/procman/applycation/doc/";
+                String path = jso.getJSONObject("doc").getString("applyDoc");
                 String ofn = file.getOriginalFilename();
                 String newpath = FileUtils.touchfile(loginid,path,ofn,file);
                 ac.setDocument(newpath);
@@ -136,7 +140,7 @@ public class ApplycationController {
                 FileUtils.delfile(atta);
                 String ofn = file.getOriginalFilename();
                 String loginid = UserUtils.getUid(session).toString();
-                String path="D:/procman/applycation/attach/";
+                String path = jso.getJSONObject("atta").getString("applyAtta");;
                 String newpath = FileUtils.touchfile(loginid,path,ofn,file);
                 Applycation ac = new Applycation();
                 ac.setAttachment(newpath);
@@ -150,7 +154,7 @@ public class ApplycationController {
     }
     @RequestMapping("/existatch/{tid}")    //获取是否带有附件
     public TableDataVo existatch(@PathVariable("tid")Integer tid, HttpSession session){
-        String attach = dls.existatta(tid, 1);
+        String attach = dls.existatta(tid, jso.getJSONObject("table").getInteger("apply"));
         if(attach == null || attach.trim().equals("")){
             return  TableDataVo.failMsg("没有附件");
         }
@@ -160,7 +164,7 @@ public class ApplycationController {
     }
     @RequestMapping("/existdoc/{tid}")    //获取是否带有正文
     public TableDataVo existdoc(@PathVariable("tid")Integer tid, HttpSession session){
-        String doc = dls.existdoc(tid, 1);
+        String doc = dls.existdoc(tid, jso.getJSONObject("table").getInteger("apply"));
         if(doc == null || doc.trim().equals("")){
             return  TableDataVo.failMsg("没有上传文件");
         }
@@ -172,13 +176,14 @@ public class ApplycationController {
     @RequestMapping("/dnattach/{tid}")    //下载附件
     public ResponseEntity<byte[]> dnattach(@PathVariable("tid")Integer tid){
         String filename = its.getById(tid).getName();
-        return dls.attach(1,tid,filename);
+        return dls.attach(jso.getJSONObject("table").getInteger("apply"),tid,filename);
     }
     @RequestMapping("/dndoc/{tid}")       //下载申请书
     public ResponseEntity<byte[]> dndoc(@PathVariable("tid")Integer tid)throws Exception{
+        Integer table = jso.getJSONObject("table").getInteger("apply");
         String filename = its.getById(tid).getName();
-        Map<String,String> map = dls.docu(1, tid, filename);
-        String temp = "D:/procman/template/apply.pdf";
+        Map<String,String> map = dls.docu(table, tid, filename);
+        String temp = jso.getJSONObject("template").getString("applyPdf");
         ItemVo ivo = its.getitemVo(tid);
         Map mapc = UserUtils.treatComm(aps.getAuditVo(tid));
         ByteArrayOutputStream mbo = MergePdf.merge(pt.fillTpl(temp, ivo), pt.tmember(ivo), FileUtils.fileTobos(map.get("path")), pt.cmTable(mapc));

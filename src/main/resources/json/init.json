@@ -1,0 +1,31 @@
+{
+  "table":{
+      "apply": 1,
+      "insp": 2,
+      "fnrp": 3
+  },
+  "stat":{
+      "initStat":1,
+      "failStat":-1
+  },
+  "doc":{
+      "applyDoc":"D:/procman/applycation/doc/",
+      "inspDoc":"D:/procman/inspection/doc/",
+      "fnrpDoc":"D:/procman/final/doc/"
+  },
+  "atta":{
+      "applyAtta":"D:/procman/applycation/attach/",
+      "inspAtta":"D:/procman/inspection/attach/",
+      "fnrpAtta":"D:/procman/final/attach/"
+  },
+  "template":{
+       "applyDoc":"D:/procman/template/apply.docx",
+       "inspDoc":"D:/procman/template/inspection.docx",
+       "fnrpDoc":"D:/procman/template/final.doc",
+       "export":"D:/procman/template/export.xls",
+       "applyPdf":"D:/procman/template/apply.pdf",
+       "inspPdf":"D:/procman/template/inspection.pdf",
+       "fnrpPdf":"D:/procman/template/final.pdf",
+       "mitPdf":"D:/procman/template/mit.pdf"
+  }
+}

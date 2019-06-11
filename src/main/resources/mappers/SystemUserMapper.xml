@@ -13,7 +13,7 @@
     <select id="getUserVoByUid" resultType="edu.mmc.entity.vo.SystemUserVo">
          SELECT  t.id userId,t.role_id roleId,r.name roleName,t.name userName,t.faculty from
          <include refid="role" />
-         t join role r on t.id =#{uid} and t.role_id = r.id
+         t join role r on t.role_id = r.id where t.id =#{uid}
     </select>
     <select id="getUser" resultType="edu.mmc.entity.SystemUser">
         select t.id userId,t.password password,t.role_id roleId,t.id_card idCard from
